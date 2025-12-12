@@ -1,7 +1,7 @@
 jenkins:
   controller:
     image: "jenkins/jenkins"
-    tag: "jdk21"
+    tag: "2.532-jdk17"
     resources:
       requests:
         cpu: "500m"

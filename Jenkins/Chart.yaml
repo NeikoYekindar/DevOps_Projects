@@ -3,8 +3,8 @@ name: jenkins
 description: Jenkins deployment for argocd
 type: application
 version: 1.0.1
-appVersion: "jdk21"
+appVersion: "2.532-jdk17"
 dependencies:
   - name: jenkins
-    version: "5.8.108"
+    version: "5.8.14"
     repository: "https://charts.jenkins.io"
