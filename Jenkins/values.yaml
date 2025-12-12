@@ -19,11 +19,17 @@ jenkins:
     installLatestPlugins: false
     overwritePlugins: true
     installPlugins:
-      - configuration-as-code:1963.v24e046127a_3f
+      - configuration-as-code:1985.vdda_32d0c4ea_b_
+      
+      # Các plugin bạn cần
       - git-client:6.4.1
-      - git:5.6.0
+      - git:5.7.0  # (Nên dùng 5.7.0 đi kèm với git-client mới)
+      
+      # Các plugin cốt lõi khác (Tôi đã update version mới nhất để fix lỗi bảo mật)
       - workflow-aggregator:600.vb_57cdd26fdd7
       - kubernetes:4306.vc91e951ea_eb_d
+      - workflow-job:1549.vc8d7f497b_22f       # Fix lỗi security
+      - credentials-binding:681.vf91669a_32e45
       
     JCasC:
       defaultConfig: true
