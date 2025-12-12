@@ -16,10 +16,6 @@ jenkins:
     overwritePlugins: true
     installPlugins:
       - configuration-as-code
-      - git-client
-      - git
-      - workflow-aggregator
-      - kubernetes
     JCasC:
       defaultConfig: true
       configScripts:
