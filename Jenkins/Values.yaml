@@ -1,4 +1,3 @@
-
 controller:
   image: "jenkins/jenkins"
   tag: "lts-jdk21"
