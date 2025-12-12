@@ -1,8 +1,11 @@
-# BẮT BUỘC phải có dòng này vì bạn đang dùng Wrapper Chart
 jenkins:
   controller:
-    image: "jenkins/jenkins"
-    tag: "lts-jdk21"  
+    # Sửa đoạn này
+    image:
+      repository: "jenkins/jenkins" # Tên image nằm ở đây
+      tag: "lts-jdk21"              # Tag nằm trong block image
+      
+    # ... các cấu hình resources, serviceType giữ nguyên ...
     resources:
       requests:
         cpu: "500m"
@@ -12,6 +15,7 @@ jenkins:
         memory: "2048Mi"
     serviceType: NodePort
     nodePort: 30000
+    
     installLatestPlugins: false
     overwritePlugins: true
     installPlugins:
@@ -20,13 +24,15 @@ jenkins:
       - git:5.6.0
       - workflow-aggregator:600.vb_57cdd26fdd7
       - kubernetes:4306.vc91e951ea_eb_d
+      
     JCasC:
       defaultConfig: true
       configScripts:
         welcome-message: |
           jenkins:
-            systemMessage: "welcome to Jenkins"
-  persistence: 
+            systemMessage: "Configured via Wrapper Chart"
+
+  persistence:
     enabled: true
     size: "8Gi"
     storageClass: ""
