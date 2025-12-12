@@ -1,0 +1,10 @@
+apiVersion: V2
+name: jenkins
+description: A Helm chart for Jenkins deployment for argocd
+type: application
+version: 1.0.0
+appVersion: "2.214.3"
+dependencies:
+  - name: jenkins
+    version: "5.1.5"
+    repository: "https://charts.jenkins.io"
