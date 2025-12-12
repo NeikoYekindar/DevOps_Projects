@@ -1,30 +1,33 @@
-controller:
-  image: "jenkins/jenkins"
-  tag: "lts"
-  resources:
-    requests:
-      cpu: "500m"
-      memory: "1024Mi"
-    limits:
-      cpu: "1000m"
-      memory: "2048Mi"
-  serviceType: NodePort
-  nodePort: 30000
-  persistence:
+# BẮT BUỘC phải có dòng này vì bạn đang dùng Wrapper Chart
+jenkins:
+  controller:
+    image: "jenkins/jenkins"
+    tag: "lts-jdk21"  # Khuyên dùng tag cụ thể thay vì "lts" để tránh bất ngờ khi update
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "1024Mi"
+      limits:
+        cpu: "1000m"
+        memory: "2048Mi"
+    serviceType: NodePort
+    nodePort: 30000
+    installLatestPlugins: false
+    overwritePlugins: true
+    installPlugins:
+      - configuration-as-code:1963.v24e046127a_3f
+      - git-client:6.4.1
+      - git:5.6.0
+      - workflow-aggregator:600.vb_57cdd26fdd7
+      - kubernetes:4306.vc91e951ea_eb_d
+    JCasC:
+      defaultConfig: true
+      configScripts:
+        welcome-message: |
+          jenkins:
+            systemMessage: "welcome to Jenkins"
+
+  persistence: # Persistence thường nằm ngang hàng controller, vẫn phải nằm trong jenkins:
     enabled: true
     size: "8Gi"
     storageClass: ""
-  installLatestPlugins: false
-  overwritePlugins: true
-  installPlugins:
-    - configuration-as-code:1963.v24e046127a_3f
-    - git-client:6.4.1
-    - git:5.6.0
-    - workflow-aggregator:600.vb_57cdd26fdd7
-    - kubernetes:4306.vc91e951ea_eb_d
-  JCasC:
-    defaultConfig: true
-    configScripts:
-      welcome-message: |
-        jenkins:
-          systemMessage: "welcome to Jenkins"

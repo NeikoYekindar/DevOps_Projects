@@ -2,7 +2,7 @@ apiVersion: v2
 name: my-jenkins-wrapper
 version: 1.0.0
 dependencies:
-  - name: jenkins
+  - name: jenkins   # <--- Đây là tên quan trọng
     condition: jenkins.enabled
     repository: https://charts.jenkins.io
     version: "5.8.3"
