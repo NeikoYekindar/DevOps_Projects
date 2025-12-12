@@ -17,24 +17,10 @@ jenkins:
       storageClass: ""
     
     installPlugins:
-      - kubernetes:4203.v1dd44f5b_1c08
-      - workflow-aggregator:596.v8b_24a_8e2979a_
-      - configuration-as-code:1775.v810dc950b_514
-      - git:5.2.1
-      
-      
-      - github-branch-source:1776.v34d3a_690558c #  GitHub
-      - gitlab-branch-source:684.v506a_342e4763 #  GitLab
-      
-      
-      - docker-workflow:572.v950f58993843
-      - pipeline-stage-view:2.34 
-      
-      
-      - credentials-binding:642.v737c345d2cf2
-      - pipeline-utility-steps:2.17.0
-      - timestamper:1.26
-      - ws-cleanup:0.46
+      - kubernetes
+      - workflow-aggregator
+      - git
+      - configuration-as-code
     
     JCasC:
       defaultConfig: true
