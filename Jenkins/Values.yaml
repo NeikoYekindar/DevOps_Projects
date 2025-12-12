@@ -17,13 +17,10 @@ jenkins:
       storageClass: ""
     
     installPlugins:
-      - kubernetes:1.36.4
-      - workflow-aggregator:2.7
-      - git:4.15.3
-      - configuration-as-code:1.63.0
-      - blueocean:1.26.3
-
-    
+      - kubernetes
+      - workflow-aggregator
+      - git
+      - configuration-as-code
     JCasC:
       defaultConfig: true
       configScripts:
