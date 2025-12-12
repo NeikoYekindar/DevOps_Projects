@@ -2,7 +2,7 @@
 jenkins:
   controller:
     image: "jenkins/jenkins"
-    tag: "lts-jdk21"  # Khuyên dùng tag cụ thể thay vì "lts" để tránh bất ngờ khi update
+    tag: "lts-jdk21"  
     resources:
       requests:
         cpu: "500m"
@@ -15,11 +15,11 @@ jenkins:
     installLatestPlugins: false
     overwritePlugins: true
     installPlugins:
-      - configuration-as-code:1963.v24e046127a_3f
-      - git-client:6.4.1
-      - git:5.6.0
-      - workflow-aggregator:600.vb_57cdd26fdd7
-      - kubernetes:4306.vc91e951ea_eb_d
+      - configuration-as-code
+      - git-client
+      - git
+      - workflow-aggregator
+      - kubernetes
     JCasC:
       defaultConfig: true
       configScripts:
@@ -27,7 +27,7 @@ jenkins:
           jenkins:
             systemMessage: "welcome to Jenkins"
 
-  persistence: # Persistence thường nằm ngang hàng controller, vẫn phải nằm trong jenkins:
+  persistence: 
     enabled: true
     size: "8Gi"
     storageClass: ""
