@@ -1,30 +1,30 @@
-jenkins:
-  controller:
-    image: "jenkins/jenkins"
-    tag: "lts-jdk21"
-    resources:
-      requests:
-        cpu: "500m"
-        memory: "1024Mi"
-      limits:
-        cpu: "1000m"
-        memory: "2048Mi"
-    serviceType: NodePort
-    nodePort: 30000
-    persistence:
-      enabled: true
-      size: "8Gi"
-      storageClass: ""
-    
-    installPlugins:
-      - configuration-as-code:1963.v24e046127a_3f
-      - git-client:6.2.1
-      - git:5.7.0
-      - workflow-aggregator:600.vb_57cdd26fdd7
-      - kubernetes:4306.vc91e951ea_eb_d
-    JCasC:
-      defaultConfig: true
-      configScripts:
-        welcome-message: |
-          jenkins:
-            systemMessage: "welcome to Jenkins"
+
+controller:
+  image: "jenkins/jenkins"
+  tag: "lts-jdk21"
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "1024Mi"
+    limits:
+      cpu: "1000m"
+      memory: "2048Mi"
+  serviceType: NodePort
+  nodePort: 30000
+  persistence:
+    enabled: true
+    size: "8Gi"
+    storageClass: ""
+  
+  installPlugins:
+    - configuration-as-code:1963.v24e046127a_3f
+    - git-client:6.2.1
+    - git:5.7.0
+    - workflow-aggregator:600.vb_57cdd26fdd7
+    - kubernetes:4306.vc91e951ea_eb_d
+  JCasC:
+    defaultConfig: true
+    configScripts:
+      welcome-message: |
+        jenkins:
+          systemMessage: "welcome to Jenkins"
