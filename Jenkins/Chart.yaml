@@ -3,7 +3,7 @@ name: jenkins
 description: A Helm chart for Jenkins deployment for argocd
 type: application
 version: 1.0.0
-appVersion: "jdk21"
+appVersion: "2.479.1-jdk17"
 dependencies:
   - name: jenkins
     version: "5.8.108"

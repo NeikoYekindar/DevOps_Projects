@@ -1,7 +1,7 @@
 jenkins:
   controller:
     image: "jenkins/jenkins"
-    tag: "lts"
+    tag: "2.479.1-jdk17"
     resources:
       requests:
         cpu: "500m"
