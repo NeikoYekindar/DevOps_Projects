@@ -1,7 +1,7 @@
 jenkins:
   controller:
     image: "jenkins/jenkins"
-    tag: "2.532-jdk17"
+    tag: "jdk17"
     resources:
       requests:
         cpu: "500m"
@@ -16,11 +16,11 @@ jenkins:
       size: "8Gi"
       storageClass: ""
     
-    installPlugins:
-      - kubernetes
-      - workflow-aggregator
-      - git
-      - configuration-as-code
+    # installPlugins:
+    #   - kubernetes
+    #   - workflow-aggregator
+    #   - git
+    #   - configuration-as-code
     
     JCasC:
       defaultConfig: true
