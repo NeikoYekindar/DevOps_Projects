@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jobdsl-scripts
+  namespace: jenkins
+data:
+  {{- range .Values.jenkins.jobdsls }}
+  {{ .name }}.groovy: |
+  {{ .script | indent 4 }}
+  {{- end }}
