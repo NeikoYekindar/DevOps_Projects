@@ -12,7 +12,7 @@ jenkins:
     image:
       registry: "docker.io"
       repository: "jenkins/jenkins" # Tên image nằm ở đây
-      tag: "2.528.3-lts-jdk21"              # Tag nằm trong block image
+      tag: "lts-jdk21"              # Tag nằm trong block image
 
     JCasC:
       defaultConfig: true
