@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins-staging-ingress
+  namespace: jenkins-staging
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    meta.helm.sh/release-name: jenkins-staging
+    meta.helm.sh/release-namespace: jenkins-staging
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - jenkins.neikoscloud.net
+      secretName: jenkins-tls
+  rules:
+    - host: jenkins-staging.neikoscloud.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jenkins-server
+                port:
+                  number: 8080

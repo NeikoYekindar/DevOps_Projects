@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jenkins-server
+  namespace: argocd
+spec:
+  destination:
+    name: https://kubernetes.default.svc
+    namespace: jenkins
+  project: default
+  source:
+    repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
+    targetRevision: HEAD
+    path: charts/Jenkins
+    helm:
+      realeaseName: jenkins-server
+      valuesFiles:
+        - values-common.yaml
+        - values-prod.yaml
+  syncPolicy:
+    # automated:
+    #   prune: true
+    #   selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

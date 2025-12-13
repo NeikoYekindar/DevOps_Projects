@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: github-app-repo
+  namespace: jenkins
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  url: https://github.com/NeikoYekindar/DevOps_Projects.git
+  githubApiUri: https://github.com/api/v3
+  githubAppID: "2466285"
+  githubAppInstallationID: "99439430"
+  githubAppPrivateKey: |
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEowIBAAKCAQEAxxN0W4d+CwCHPcVjeGhhxGq4aZWgMq3hsvlUTQ3BRQvMJ2aW
+    AeMakme2sT0E52vB+FvYkLx+ISrfDkTR/Ep1FfMgPRZR+pvaSOce9PLSO0V3u8Wp
+    l44QaRlXeSEUtK0g4lSPpjWnVtu4kBw13Nj1AMLjksw8zgVevzm9M4V7Zutp+lUj
+    qf8ZHPI9ZUs2NbLx4/XM+XiFUq+fCspVKR8ik6i7iQRRTGem2twadL+jDxZKLK3P
+    u390l02IvR9UbQ176FovamuGt3SYoHPVQqt4+xqMnu1mat1QbO7RH1CHk7lMxV2y
+    Sm2KUSfyj9n2xq9G9+9nKTqqNcqW+MNIVBSJhwIDAQABAoIBAGnZQD8CddQnvcDs
+    WQ1GguVK0S7ircEEj0L4KwilTaQGt9AjTZNHS3OYzZzDkv3xX7tMKoQalP3Rq7QM
+    h5IbjNHU6clROtmDULb+nIklKv702sruOFQq5zLalJYFLts6SofM6mw3jvgx75pA
+    RatdeDelaBc/nPz2AgCvFJh2WrzHcXMRGAgG9DFV/90FVrOryag2sI/0w1DeLlMb
+    HBEcabpJeFhKYQ3jr8VmCRcomeQ+rNUunjzbxAion/yzfKkVvMZl7PenWgMjDA9x
+    8ryHaswAcQtappSD2iLXfPZ8K7wfPBfKAS12/9SrpIg9wmIzYVboYKJWrcQGvWGA
+    iyOelvECgYEA/Uv2eN4C/mCyvX7Zk8TnMqRg+XWJq5YBXtvNudrjjwntPuu+sFLD
+    ITdQK7pWMCt0/wzavcoF0Nu28CFqSPVVoRtvUYJOM5IO7a3DZ/qHaxYYDB82i02U
+    HH8LPL9Jsx/2zyis4UHGEnOUjJMfvyl/ntcxhbMcQDRuiml5duwfyTUCgYEAyTNa
+    qZz1kHhR4v+aw01LIKZUGM3JPcGqVWQfIIrHq4bjRXjx7SSSIOxtKU0gQQ7pgLJk
+    tqw9nHigXMSHYgkxXmCURQbdeHLWWyF8rQ/DBnMKQJW6GoWTRD+SRMv78MsTDVGm
+    1S5ik66mRTUeK67ztjdx4EQX6z3gklM1VLfcG0sCgYEAypW2y3TFcC5mxqht3IHf
+    Z+GQrfQT5+hRsEycfclTt1N5LJngKaYH6skSleayiFQ5fsQJL0Ik5KbV6bjQCQov
+    Mmt+3PIbGaP3zKDtaHw3Uq6ZDRjpxwCFNUVm928Gwv0NqSIfIwo4IQnQBZ6mBX5r
+    U99I/GYEclV9E7bILxUrVwECgYAldFHkUTvFcSCNSVfeE31wzoXJOEXGIU88Ji9F
+    N5CD9dBJFoKyyqQJTPnlPl5KviPpuUvWVaoCftIbctpg/aUbFI+FagnAamBNBqbW
+    8KA1iyTVcQn79fG8OrlX5UE5ShR53kFYXhIru89oAsNjDmZ//UJNpV9ug05S7vp2
+    kuN+kQKBgC3QF83rOcRBBDKvr5pAJGqxm7WWzjD29GbwdAmDeTl0ZGn2DsEWnJCT
+    EPUXGfmdjpp19CIg8V/u2L7q0N2PZLbMc2dSA6mKV81wA0aaOwaGEWMw7UGr4Q/j
+    2iEYCoc+gIGs+aWjHKRiQZLctbnz0iJs3q5Xs9W1jdxUn9H4GSF/
+    -----END RSA PRIVATE KEY-----

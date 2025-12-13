@@ -1,0 +1,18 @@
+jenkins:
+  persistence:
+    size: "8Gi"
+  controller:
+    jenkinsUrlProtocol: https
+    jenkinsUrl: https://jenkins-staging.neikoscloud.net
+    JCasC:
+      configScripts:
+        welcome-message: |
+          jenkins:
+            systemMessage: "Welcome to the Production Jenkins Server"
+      security: |
+        jenkins:
+          securityRealm:
+            github:
+              githubWebUri: "https://github.com"
+              githubApiUri: "https://github.com/api/v3"
+               

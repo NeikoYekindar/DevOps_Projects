@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: jenkins-staging
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - pullRequest:
+        github:
+          owner: NeikoYekindar
+          repo: DevOps_Projects
+          api: https://github.com
+          labels:
+          - jenkis-deploy-staging
+          # tokenRef:
+          #   name: github-token
+          #   key: token
+        requeueAfterSeconds: 1800 # 30 minutes
+  template:
+    metadata:
+      name: jenkins-staging-{.number}}
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
+        targetRevision: '{{.head_sha}}'
+        path: charts/Jenkins
+        helm:
+          realeaseName: jenkins-staging
+          valuesFiles:
+            - values-common.yaml
+            - values-staging.yaml
+      destination:
+        name: https://kubernetes.default.svc
+        namespace: jenkins-staging
+  syncPolicy:
+    # automated:
+    #   prune: true
+    #   selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins-ingress
+  namespace: jenkins
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    meta.helm.sh/release-name: jenkins
+    meta.helm.sh/release-namespace: jenkins
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - jenkins.neikoscloud.net
+      secretName: jenkins-tls
+  rules:
+    - host: jenkins.neikoscloud.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jenkins-server
+                port:
+                  number: 8080
