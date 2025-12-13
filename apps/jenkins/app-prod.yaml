@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
     targetRevision: HEAD
-    path: charts/Jenkins
+    path: charts/jenkins
     helm:
       realeaseName: jenkins-server
       valuesFiles:
