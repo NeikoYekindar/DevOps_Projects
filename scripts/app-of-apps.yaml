@@ -8,9 +8,9 @@ spec:
     name: in-cluster
     namespace: argocd
   source:
-    path: scripts/app-of-apps.yaml
+    path: scripts/
     repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
-    targetRevision: HEAD
+    targetRevision: main
     directory:
       recurse: true
   project: default

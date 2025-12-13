@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
-    targetRevision: HEAD
+    targetRevision: main
     path: charts/jenkins
     helm:
       realeaseName: jenkins-server
