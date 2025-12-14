@@ -23,10 +23,3 @@ spec:
     #   selfHeal: true
     syncOptions:
       - CreateNamespace=true
-  ignoreDifferences:
-    - group: ""
-      kind: PersistentVolumeClaim
-      name: jenkins-server
-      namespace: jenkins
-      jsonPointers:
-        - /spec
