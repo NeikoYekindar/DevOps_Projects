@@ -13,7 +13,7 @@ spec:
     targetRevision: main
     path: charts/jenkins
     helm:
-      realeaseName: jenkins-server
+      releaseName: jenkins-server
       valuesFiles:
         - values.yaml
         - values-prod.yaml
