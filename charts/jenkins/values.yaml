@@ -15,23 +15,28 @@ jenkins:
       repository: "jenkins/jenkins" # Tên image nằm ở đây
       tag: "lts-jdk21"              # Tag nằm trong block image
 
+    env:
+      - name: JENKINS_ADMIN_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: jenkins-server
+            key: jenkins-admin-password
+
     JCasC:
-      defaultConfig: true
+      defaultConfig: false
       configScripts:
-        welcome-message: |
+        base-security: |
           jenkins:
-            systemMessage: "Configured via Wrapper Chart"
-      jobdsl: |
-        jobs:
+            securityRealm:
+              local:
+                allowsSignup: false
+                users:
+                  - id: admin
+                    password: ${JENKINS_ADMIN_PASSWORD}
 
-      authorization: |
-        jenkins:
-          authorizationStrategy:
-            globalMatrix:
-              permissions:
-                - "USER:Overall/Administer:admin"
-                - "USER:Overall/Read:anonymous"
-
+            authorizationStrategy:
+              loggedInUsersCanDoAnything:
+                allowAnonymousRead: false
 # Jenkins.instance.pluginManager.plugins.each{
 #   plugin ->
 #   	println ("     - ${plugin.getShortName()}:${plugin.getVersion()}")

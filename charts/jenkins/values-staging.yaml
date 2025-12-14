@@ -8,11 +8,13 @@ jenkins:
       configScripts:
         welcome-message: |
           jenkins:
-            systemMessage: "Welcome to the Production Jenkins Server"
-      security: |
-        jenkins:
-          securityRealm:
-            github:
-              githubWebUri: "https://github.com"
-              githubApiUri: "https://github.com/api/v3"
+            systemMessage: "Welcome to Jenkins Staging Server"
+
+        github-auth: |
+          jenkins:
+            authorizationStrategy:
+              github:
+                allowAnonymousRead: false
+                adminUserNames: "admin"
+                authenticatedUserReadPermission: true
                
