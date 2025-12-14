@@ -1,6 +1,6 @@
 jenkins:
   persistence:
-    existingClaim: jenkins-server
+    # existingClaim: jenkins-server
     size: "8Gi"
   controller:
     jenkinsUrlProtocol: https
