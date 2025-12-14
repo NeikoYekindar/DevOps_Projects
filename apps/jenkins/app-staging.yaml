@@ -9,7 +9,7 @@ spec:
   generators:
     - pullRequest:
         github:
-          owner: NeikoYekindar
+          owner: DarkinSideNet
           repo: DevOps_Projects
           api: https://github.com
           labels:
