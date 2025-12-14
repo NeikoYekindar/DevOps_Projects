@@ -1,9 +1,9 @@
 jenkins:
-  # persistence:
-  #   enabled: false
-  #   size: "8Gi"
-  #   existingClaim: jenkins-server
-  #   storageClass: gp3
+  persistence:
+    enabled: false
+    size: "8Gi"
+    existingClaim: jenkins-server
+    storageClass: gp3
   controller:
     jenkinsUrlProtocol: https
     jenkinsUrl: https://jenkins.neikoscloud.net
