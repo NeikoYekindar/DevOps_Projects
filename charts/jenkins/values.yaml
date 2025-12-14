@@ -23,6 +23,10 @@ jenkins:
             key: jenkins-admin-password
 
     JCasC:
+      configScripts:
+        welcome-message: |
+          jenkins:
+            systemMessage: "Welcome to the Production Jenkins Server"      
       defaultConfig: false
       configScripts:
         base-security: |
