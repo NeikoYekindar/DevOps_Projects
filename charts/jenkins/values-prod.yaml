@@ -1,9 +1,7 @@
 jenkins:
   persistence:
-    enabled: true
-    storageClass: "gp3"  # Change to "local-path" for K3s/K3d or your cluster's storage class
     size: "8Gi"
-    # existingClaim: jenkins-server
+    existingClaim: jenkins-server
   controller:
     jenkinsUrlProtocol: https
     jenkinsUrl: https://jenkins.neikoscloud.net
