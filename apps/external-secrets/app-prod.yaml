@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    chart: charts/external-secrets
+    path: charts/external-secrets
     repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
     targetRevision: main
     helm:
