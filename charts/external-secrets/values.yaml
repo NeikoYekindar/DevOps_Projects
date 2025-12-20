@@ -12,8 +12,17 @@ clusterSecretStore:
 
 # Configuration for external-secrets dependency chart
 external-secrets:
+  installCRDs: true
   serviceAccount:
     create: true
     name: external-secrets
     annotations: {}
-  installCRDs: true
+  # Ensure the webhook also uses the same service account
+  webhook:
+    serviceAccount:
+      create: false
+      name: external-secrets
+  certController:
+    serviceAccount:
+      create: false
+      name: external-secrets
