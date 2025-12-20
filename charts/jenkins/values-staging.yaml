@@ -1,10 +1,14 @@
 externalSecrets:
   enabled: true
+  secretPath: "jenkins/staging/admin"
 
   github:
     enabled: true
-    # AWS Secrets Manager secret name
     secretPath: "jenkins/staging/github/oauth"
+
+  sshEks:
+    enabled: true
+    secretPath: "jenkins/staging/ssh/eks"
 
 
 jenkins:

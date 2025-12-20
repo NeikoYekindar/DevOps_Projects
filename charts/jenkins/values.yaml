@@ -1,7 +1,14 @@
 externalSecrets:
+  enabled: false
+  secretPath: "jenkins/default/admin"
+
+  github:
+    enabled: false
+    secretPath: "jenkins/default/github/oauth"
+
   sshEks:
-    enabled: true
-    secretPath: "jenkins/staging/ssh/eks"
+    enabled: false
+    secretPath: "jenkins/default/ssh/eks"
 
 jenkins:
   jobdsls: []
