@@ -13,10 +13,10 @@ spec:
           repo: DevOps_Projects
           api: https://api.github.com
           labels:
-          - jenkis-deploy-staging
-          # tokenRef:
-          #   name: github-token
-          #   key: token
+          - jenkins-deploy-staging
+          tokenRef:
+            name: argo-github-user-pat-secret
+            key: password
         requeueAfterSeconds: 1800 # 30 minutes
   template:
     metadata:
@@ -41,3 +41,7 @@ spec:
     #   selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - pruneOnDelete= true
+    automated:
+      prune: true
+      selfHeal: true

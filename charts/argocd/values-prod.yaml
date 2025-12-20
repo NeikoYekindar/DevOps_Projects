@@ -1,0 +1,8 @@
+externalSecrets:
+  enabled: true
+
+  github:
+    enabled: true
+    secretName: argo-github-user-pat-secret
+    secretPath: argocd/github/pat
+    secretKey: password

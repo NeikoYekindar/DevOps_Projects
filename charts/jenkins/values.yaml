@@ -1,4 +1,11 @@
+externalSecrets:
+  sshEks:
+    enabled: true
+    secretPath: "jenkins/staging/ssh/eks"
+
 jenkins:
+  jobdsls: []
+
   persistence:
     enabled: false
     volumes:
@@ -8,12 +15,12 @@ jenkins:
     mounts:
       - name: jobdsl-scripts
         mountPath: /var/jenkins_home/jobDSL
+
   controller:
-    # Sửa đoạn này
     image:
       registry: "docker.io"
-      repository: "jenkins/jenkins" # Tên image nằm ở đây
-      tag: "lts-jdk21"              # Tag nằm trong block image
+      repository: "jenkins/jenkins"
+      tag: "lts-jdk21"
 
     env:
       - name: JENKINS_ADMIN_PASSWORD
@@ -23,12 +30,13 @@ jenkins:
             key: jenkins-admin-password
 
     JCasC:
-      configScripts:
-        welcome-message: |
-          jenkins:
-            systemMessage: "Welcome to the Production Jenkins Server"      
       defaultConfig: false
       configScripts:
+
+        welcome-message: |
+          jenkins:
+            systemMessage: "Welcome to Jenkins Server"
+
         base-security: |
           jenkins:
             securityRealm:
@@ -41,11 +49,20 @@ jenkins:
             authorizationStrategy:
               loggedInUsersCanDoAnything:
                 allowAnonymousRead: false
-# Jenkins.instance.pluginManager.plugins.each{
-#   plugin ->
-#   	println ("     - ${plugin.getShortName()}:${plugin.getVersion()}")
-# }
-    # ... các cấu hình resources, serviceType giữ nguyên ...
+        
+        ssh-credentials: |
+          credentials:
+            system:
+              domainCredentials:
+                - credentials:
+                    - basicSSHUserPrivateKey:
+                        scope: GLOBAL
+                        id: "ssh-eks-key"
+                        username: "${jenkins-ssh-eks-credential.username}"
+                        privateKeySource:
+                          directEntry:
+                            privateKey: "${jenkins-ssh-eks-credential.privateKey}"
+
     resources:
       requests:
         cpu: "500m"
@@ -53,9 +70,10 @@ jenkins:
       limits:
         cpu: "1000m"
         memory: "5296Mi"
+
     serviceType: NodePort
     nodePort: 30000
-    
+
     installLatestPlugins: false
     overwritePlugins: true
     installPlugins:
@@ -63,17 +81,10 @@ jenkins:
       - kubernetes
       - workflow-aggregator
       - job-dsl
-
-      # --- CẶP PLUGIN GIT (NGUYÊN NHÂN GÂY LỖI) ---
       - git
       - git-client
-
-      # --- ĐÂY LÀ DÒNG FIX LỖI ---
-      # Phải nâng lên bản 687... để thỏa mãn yêu cầu của git:5.7.0
       - credentials-binding
-
-      # --- FIX CÁC LỖI BẢO MẬT (SECURITY WARNINGS) ---
-      # Nâng cấp các gói này để hết báo vàng
+      - ssh-credentials   
       - jakarta-mail-api
       - pipeline-model-definition
       - workflow-cps

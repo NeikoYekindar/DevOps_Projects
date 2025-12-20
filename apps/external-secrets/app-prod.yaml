@@ -1,19 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: app-of-apps
+  name: external-secrets
   namespace: argocd
 spec:
-  destination:
-    name: in-cluster
-    namespace: argocd
+  project: default
   source:
-    path: apps
+    chart: charts/external-secrets
     repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
     targetRevision: main
-    directory:
-      recurse: true
-  project: default
+    helm:
+      releaseName: external-secrets
+      valuesFiles:
+        - values-prod.yaml
+  destination:
+    name: in-cluster
+    namespace: external-secrets
   syncPolicy:
     # automated:
     #   prune: true

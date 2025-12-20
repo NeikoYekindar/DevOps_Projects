@@ -14,8 +14,8 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - jenkins.neikoscloud.net
-      secretName: jenkins-tls
+        - jenkins-staging.neikoscloud.net
+      secretName: jenkins-staging-tls
   rules:
     - host: jenkins-staging.neikoscloud.net
       http:
@@ -24,6 +24,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: jenkins-server
+                name: jenkins-staging
                 port:
                   number: 8080

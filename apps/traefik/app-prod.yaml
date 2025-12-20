@@ -1,22 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: app-of-apps
+  name: traefik
   namespace: argocd
 spec:
   destination:
+    namespace: traefik
     name: in-cluster
-    namespace: argocd
+  project: default
   source:
-    path: apps
+    path: charts/traefik
     repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
     targetRevision: main
-    directory:
-      recurse: true
-  project: default
+    helm:
+      releaseName: traefik
+      valueFiles:
+        - values-prod.yaml
   syncPolicy:
-    # automated:
-    #   prune: true
-    #   selfHeal: true
     syncOptions:
       - CreateNamespace=true
+    # no auto-synch for prod
+    # automated:

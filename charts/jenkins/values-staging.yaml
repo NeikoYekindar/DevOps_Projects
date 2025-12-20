@@ -1,20 +1,39 @@
+externalSecrets:
+  enabled: true
+
+  github:
+    enabled: true
+    # AWS Secrets Manager secret name
+    secretPath: "jenkins/staging/github/oauth"
+
+
 jenkins:
   persistence:
     size: "8Gi"
+
   controller:
     jenkinsUrlProtocol: https
     jenkinsUrl: https://jenkins-staging.neikoscloud.net
+
     JCasC:
       configScripts:
+
         welcome-message: |
           jenkins:
             systemMessage: "Welcome to Jenkins Staging Server"
 
         github-auth: |
           jenkins:
+            securityRealm:
+              github:
+                githubWebUri: "https://github.com"
+                githubApiUri: "https://api.github.com"
+                clientID: "${jenkins-staging-github-oauth-secret.clientId}"
+                clientSecret: "${jenkins-staging-github-oauth-secret.clientSecret}"
+                oauthScopes: "read:org,user:email"
+
             authorizationStrategy:
               github:
-                allowAnonymousRead: false
+                allowAnonymousRead: true
                 adminUserNames: "admin"
                 authenticatedUserReadPermission: true
-               
