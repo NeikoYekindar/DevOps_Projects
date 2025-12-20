@@ -15,7 +15,7 @@ spec:
           labels:
           - jenkins-deploy-staging
           tokenRef:
-            name: argo-github-user-pat-secret
+            secretName: argo-github-user-pat-secret
             key: password
         requeueAfterSeconds: 1800 # 30 minutes
   template:
