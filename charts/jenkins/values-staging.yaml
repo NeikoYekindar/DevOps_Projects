@@ -42,7 +42,7 @@ jenkins:
 
             authorizationStrategy:
               github:
-                allowAnonymousRead: true
+                allowAnonymousRead: false
                 adminUserNames: "admin"
-                authenticatedUserReadPermission: true
+                authenticatedUserReadPermission: false
 # Trigger ArgoCD sync
