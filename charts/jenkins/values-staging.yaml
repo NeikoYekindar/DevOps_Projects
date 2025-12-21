@@ -13,17 +13,17 @@ jenkins:
     jenkinsUrlProtocol: https
     jenkinsUrl: https://jenkins-staging.neikoscloud.net
 
-    env:
-      - name: GITHUB_CLIENT_ID
-        valueFrom:
-          secretKeyRef:
-            name: jenkins-staging-github-oauth-secret
-            key: clientId
-      - name: GITHUB_CLIENT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: jenkins-staging-github-oauth-secret
-            key: clientSecret
+    # env:
+    #   - name: GITHUB_CLIENT_ID
+    #     valueFrom:
+    #       secretKeyRef:
+    #         name: jenkins-staging-github-oauth-secret
+    #         key: clientId
+    #   - name: GITHUB_CLIENT_SECRET
+    #     valueFrom:
+    #       secretKeyRef:
+    #         name: jenkins-staging-github-oauth-secret
+    #         key: clientSecret
 
     JCasC:
       configScripts:
@@ -37,14 +37,14 @@ jenkins:
                 clientID: "Ov23limMHZ2rzzwTJAvv"
                 clientSecret: "d896fb2d7403b917b53d21fddf77b63e30b28d5f"
                 oauthScopes: "read:org,user:email"
-            authorizationStrategy:
-              github:
-                adminUserNames: "Lynrbe"
-                authenticatedUserReadPermission: true
-                allowAnonymousRead: false
-                allowAnonymousJobStatusPermission: false
-                allowCcTrayPermission: false
-                allowGithubWebHookPermission: true
+            # authorizationStrategy:
+            #   github:
+            #     adminUserNames: "Lynrbe"
+            #     authenticatedUserReadPermission: true
+            #     allowAnonymousRead: false
+            #     allowAnonymousJobStatusPermission: false
+            #     allowCcTrayPermission: false
+            #     allowGithubWebHookPermission: true
         
         welcome-message: |
           jenkins:
