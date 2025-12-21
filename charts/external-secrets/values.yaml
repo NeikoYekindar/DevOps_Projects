@@ -1,3 +1,7 @@
+# Default values for external-secrets configuration
+# This chart only creates ClusterSecretStore
+# The operator should be installed separately
+
 clusterSecretStore:
   name: aws-secrets-manager
   region: us-east-1

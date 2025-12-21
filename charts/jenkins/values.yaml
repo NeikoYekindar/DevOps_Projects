@@ -1,7 +1,16 @@
 externalSecrets:
+  # External secrets are disabled by default
+  # Override in values-prod.yaml or values-staging.yaml to enable
+  # enabled: false
+  # secretPath: "jenkins/ENVIRONMENT/admin"  # Replace ENVIRONMENT with staging/production
+
+  github:
+    enabled: false
+    secretPath: "jenkins/ENVIRONMENT/github/oauth"  # Replace ENVIRONMENT with staging/production
+
   sshEks:
     enabled: true
-    secretPath: "jenkins/staging/ssh/eks"
+    secretPath: "jenkins/ssh/eks"  # Replace ENVIRONMENT with staging/production
 
 jenkins:
   jobdsls: []

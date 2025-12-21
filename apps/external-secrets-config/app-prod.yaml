@@ -1,23 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik
+  name: external-secrets-config
   namespace: argocd
 spec:
-  destination:
-    namespace: traefik
-    name: in-cluster
   project: default
   source:
-    path: charts/traefik
+    path: charts/external-secrets
     repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
     targetRevision: main
     helm:
-      releaseName: traefik
-      valueFiles:
+      releaseName: external-secrets-config
+      valuesFiles:
         - values-prod.yaml
+  destination:
+    name: in-cluster
+    namespace: external-secrets
   syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
-    # no auto-synch for prod
-    # automated:

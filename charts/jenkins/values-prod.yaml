@@ -1,9 +1,9 @@
 externalSecrets:
-  enabled: true
+  # enabled: true
+  # secretPath: "jenkins/production/admin"
 
   github:
     enabled: true
-    # AWS Secrets Manager secret name
     secretPath: "jenkins/production/github/oauth"
 
 
