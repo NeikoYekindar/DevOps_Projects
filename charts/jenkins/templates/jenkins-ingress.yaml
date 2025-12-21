@@ -1,13 +1,14 @@
+{{- if eq .Release.Namespace "jenkins" }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: jenkins-ingress
-  namespace: jenkins
+  namespace: {{ .Release.Namespace }}
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    meta.helm.sh/release-name: jenkins
-    meta.helm.sh/release-namespace: jenkins
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 
 spec:
@@ -27,3 +28,4 @@ spec:
                 name: jenkins-server
                 port:
                   number: 8080
+{{- end }}

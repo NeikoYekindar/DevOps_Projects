@@ -1,8 +1,9 @@
+{{- if eq .Release.Namespace "jenkins-staging" }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: jenkins-staging-ingress
-  namespace: jenkins-staging
+  namespace: {{ .Release.Namespace }}
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
@@ -27,3 +28,4 @@ spec:
                 name: jenkins-staging
                 port:
                   number: 8080
+{{- end }}
