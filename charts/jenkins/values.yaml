@@ -94,7 +94,7 @@ jenkins:
               loggedInUsersCanDoAnything:
                 allowAnonymousRead: false
         
-        ssh-credentials: |
+        credentials-config: |
           credentials:
             system:
               domainCredentials:
@@ -102,10 +102,17 @@ jenkins:
                     - basicSSHUserPrivateKey:
                         scope: GLOBAL
                         id: "ssh-eks-key"
+                        description: "SSH key for EKS access"
                         username: "${jenkins-ssh-eks-credential.username}"
                         privateKeySource:
                           directEntry:
                             privateKey: "${jenkins-ssh-eks-credential.privateKey}"
+                    - aws:
+                        scope: GLOBAL
+                        id: "aws-credentials"
+                        description: "AWS Access Credentials"
+                        accessKey: "${AWS_ACCESS_KEY}"
+                        secretKey: "${AWS_SECRET_KEY}"
 
     resources:
       requests:
@@ -135,6 +142,7 @@ jenkins:
       - configuration-as-code:2006.v001a_2ca_6b_574
       - credentials-binding:702.vfe613e537e88
       - credentials:1453.v9b_a_29777a_b_fd
+      - aws-credentials:232.v727c52e5f50a_
       - display-url-api:2.217.va_6b_de84cc74b_
       - durable-task:587.v84b_877235b_45
       - font-awesome-api:6.7.2-1
