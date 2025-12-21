@@ -10,7 +10,11 @@ externalSecrets:
 
   sshEks:
     enabled: true
-    secretPath: "jenkins/ssh/eks"  # Replace ENVIRONMENT with staging/production
+    secretPath: "jenkins/ssh/eks" 
+
+  awsAccess:
+    enabled: true
+    secretPath: "jenkins/aws/access" 
 
 jenkins:
   jobdsls: []
@@ -31,12 +35,43 @@ jenkins:
       repository: "jenkins/jenkins"
       tag: "lts-jdk21"
 
+    # Install AWS CLI in Jenkins container
+    initContainerEnv:
+      - name: INSTALL_AWS_CLI
+        value: "true"
+
+    initScripts:
+      install-aws-cli: |
+        #!/bin/bash
+        if [ "$INSTALL_AWS_CLI" = "true" ]; then
+          echo "Installing AWS CLI..."
+          cd /tmp
+          apt-get update && apt-get install -y curl unzip
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip -q awscliv2.zip
+          ./aws/install
+          rm -rf aws awscliv2.zip
+          echo "AWS CLI installed successfully"
+          aws --version
+        fi
+
     env:
       - name: JENKINS_ADMIN_PASSWORD
         valueFrom:
           secretKeyRef:
             name: jenkins-server
             key: jenkins-admin-password
+      - name: AWS_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: jenkins-aws-access-credential
+            key: awsAccessKey
+      - name: AWS_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: jenkins-aws-access-credential
+            key: awsSecretKey
+
 
     JCasC:
       defaultConfig: false
