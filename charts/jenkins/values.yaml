@@ -188,6 +188,7 @@ jenkins:
       - workflow-support:976.vb_d9493c2eb_09
       - ssh-agent:386.v36cc0c7582f0
       - github-api:1.330-492.v3941a_032db_2a_
+      - github-oauth
       - json-path-api:2.10.0-202.va_9cc16c1e476
       - token-macro:477.vd4f0dc3cb_cf1
       - github:1.45.0
