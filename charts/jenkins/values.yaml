@@ -1,7 +1,7 @@
 externalSecrets:
   github:
     enabled: false
-    secretPath: "jenkins/staging/github/oauth"
+    # secretPath: "jenkins/staging/github/oauth"
   sshEks:
     enabled: true
     secretPath: "jenkins/ssh/eks"
