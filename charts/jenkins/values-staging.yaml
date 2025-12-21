@@ -27,13 +27,9 @@ jenkins:
 
     JCasC:
       configScripts:
-
-        welcome-message: |
+        jenkins-config: |
           jenkins:
             systemMessage: "Welcome to Jenkins Staging Server"
-
-        github-auth: |
-          jenkins:
             securityRealm:
               github:
                 githubWebUri: "https://github.com"
@@ -41,7 +37,6 @@ jenkins:
                 clientID: "${GITHUB_CLIENT_ID}"
                 clientSecret: "${GITHUB_CLIENT_SECRET}"
                 oauthScopes: "read:org,user:email"
-
             authorizationStrategy:
               github:
                 allowAnonymousRead: false
@@ -50,4 +45,3 @@ jenkins:
                 allowCcTrayPermission: false
                 allowGithubWebHookPermission: false
                 adminUserNames: "Lynrbe"
-# Trigger ArgoCD sync
