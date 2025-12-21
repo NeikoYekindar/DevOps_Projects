@@ -1,8 +1,9 @@
+{{- if eq .Release.Namespace "jenkins" }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: jenkins-cert
-  namespace: jenkins
+  namespace: {{ .Release.Namespace }}
 spec:
   secretName: jenkins-tls
   issuerRef:
@@ -10,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - jenkins.neikoscloud.net
+{{- end }}
