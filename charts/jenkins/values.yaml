@@ -4,21 +4,6 @@
 # Environment-specific values should be in values-{env}.yaml files
 # ============================================================================
 
-# External Secrets - disabled by default, enable in environment-specific files
-externalSecrets:
-  github:
-    enabled: false
-    secretPath: ""
-  sshEks:
-    enabled: false
-    secretPath: ""
-  awsAccess:
-    enabled: false
-    secretPath: ""
-  default:
-    enabled: false
-    secretPath: ""
-
 jenkins:
   jobdsls: []
 

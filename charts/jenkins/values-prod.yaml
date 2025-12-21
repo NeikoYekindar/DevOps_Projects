@@ -5,19 +5,19 @@
 # Usage: helm upgrade -f values.yaml -f values-production.yaml
 # ============================================================================
 
-externalSecrets:
-  github:
-    enabled: true
-    secretPath: "jenkins/production/github/oauth"  # Production has different secret path
-  sshEks:
-    enabled: true
-    secretPath: "jenkins/ssh/eks"
-  awsAccess:
-    enabled: true
-    secretPath: "jenkins/aws/access"
-  default:
-    enabled: true
-    secretPath: "jenkins/default/admin" # Production has different admin secret
+# externalSecrets:
+#   github:
+#     enabled: true
+#     secretPath: "jenkins/production/github/oauth"  # Production has different secret path
+#   sshEks:
+#     enabled: true
+#     secretPath: "jenkins/ssh/eks"
+#   awsAccess:
+#     enabled: true
+#     secretPath: "jenkins/aws/access"
+#   default:
+#     enabled: true
+#     secretPath: "jenkins/default/admin" # Production has different admin secret
 
 jenkins:
   persistence:
