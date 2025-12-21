@@ -1,10 +1,13 @@
 traefik:
   service:
+    type: LoadBalancer
     annotations:
       service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+
   providers:
     kubernetesCRD:
+      enabled: true
       allowCrossNamespace: true
     kubernetesIngress:
+      enabled: true
       namespaces: []
-    
