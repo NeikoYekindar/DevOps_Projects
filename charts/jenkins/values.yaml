@@ -31,7 +31,7 @@ jenkins:
       tag: "lts-jdk21"
     
     # Gỡ bỏ initScripts gây lỗi Groovy, thay bằng env để container tự hiểu
-    env:
+    containerEnv:
       - name: AWS_ACCESS_KEY
         valueFrom:
           secretKeyRef:
