@@ -1,0 +1,39 @@
+# externalSecrets:
+#   # enabled: true
+#   # secretPath: "jenkins/production/admin"
+
+#   github:
+#     enabled: true
+#     secretPath: "jenkins/production/github/oauth"
+
+
+# jenkins:
+#   persistence:
+#     size: "8Gi"
+
+#   controller:
+#     jenkinsUrlProtocol: https
+#     jenkinsUrl: https://jenkins.neikoscloud.net
+
+#     JCasC:
+#       configScripts:
+
+#         welcome-message: |
+#           jenkins:
+#             systemMessage: "Welcome to Jenkins Staging Server"
+
+#         github-auth: |
+#           jenkins:
+#             securityRealm:
+#               github:
+#                 githubWebUri: "https://github.com"
+#                 githubApiUri: "https://api.github.com"
+#                 clientID: "${jenkins-prod-github-oauth-secret.clientId}"
+#                 clientSecret: "${jenkins-prod-github-oauth-secret.clientSecret}"
+#                 oauthScopes: "read:org,user:email"
+
+#             authorizationStrategy:
+#               github:
+#                 allowAnonymousRead: true
+#                 adminUserNames: "admin"
+#                 authenticatedUserReadPermission: true

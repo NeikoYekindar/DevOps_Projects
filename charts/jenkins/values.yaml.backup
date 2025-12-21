@@ -1,12 +1,19 @@
-# ============================================================================
-# Common Jenkins Configuration
-# This file contains configurations that are SHARED across all environments
-# Environment-specific values should be in values-{env}.yaml files
-# ============================================================================
+externalSecrets:
+  github:
+    enabled: true
+    secretPath: "jenkins/staging/github/oauth"
+  sshEks:
+    enabled: true
+    secretPath: "jenkins/ssh/eks"
+  awsAccess:
+    enabled: true
+    secretPath: "jenkins/aws/access"
+  default:
+    enabled: true
+    secretPath: "jenkins/default/admin"
 
 jenkins:
   jobdsls: []
-
   persistence:
     storageClass: gp3
     volumes:
@@ -22,18 +29,77 @@ jenkins:
       registry: "docker.io"
       repository: "jenkins/jenkins"
       tag: "lts-jdk21"
+    
+    # Gỡ bỏ initScripts gây lỗi Groovy, thay bằng env để container tự hiểu
+    containerEnv:
+      - name: AWS_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: jenkins-aws-access-credential
+            key: awsAccessKey
+      - name: AWS_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: jenkins-aws-access-credential
+            key: awsSecretKey
+      - name: SSH_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: jenkins-ssh-eks-credential
+            key: username
+      - name: SSH_PRIVATE_KEY
+        valueFrom:
+          secretKeyRef:
+            name: jenkins-ssh-eks-credential
+            key: privateKey
+      - name: GITHUB_CLIENT_ID
+        valueFrom:
+          secretKeyRef:
+            name: jenkins-staging-github-oauth-secret
+            key: clientId
+      - name: GITHUB_CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: jenkins-staging-github-oauth-secret
+            key: clientSecret
 
     javaOpts: "-Djenkins.install.runSetupWizard=false"
 
-    # JCasC common configuration
-    # NOTE: credentials-config is defined in environment-specific files
-    # because it depends on environment variables (containerEnv)
+    # Cấu hình JCasC cơ bản
     JCasC:
       defaultConfig: false
       configScripts:
         welcome-message: |
           jenkins:
             systemMessage: "Welcome to Jenkins Server"
+        security: |
+          jenkins:
+            securityRealm:
+              github:
+                githubWebUri: "https://github.com"
+                githubApiUri: "https://api.github.com"
+                clientID: "${GITHUB_CLIENT_ID}"
+                clientSecret: "${GITHUB_CLIENT_SECRET}"
+                oauthScopes: "read:org,user:email"
+        credentials-config: |
+          credentials:
+            system:
+              domainCredentials:
+                - credentials:
+                    - basicSSHUserPrivateKey:
+                        scope: GLOBAL
+                        id: "ssh-eks-key"
+                        description: "SSH key for EKS access"
+                        username: "${SSH_USERNAME}"
+                        privateKeySource:
+                          directEntry:
+                            privateKey: "${SSH_PRIVATE_KEY}"
+                    - aws:
+                        scope: GLOBAL
+                        id: "aws-credentials"
+                        description: "AWS Access Credentials"
+                        accessKey: "${AWS_ACCESS_KEY}"
+                        secretKey: "${AWS_SECRET_KEY}"
 
     resources:
       requests:
