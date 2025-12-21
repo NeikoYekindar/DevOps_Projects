@@ -5,7 +5,7 @@ externalSecrets:
   # secretPath: "jenkins/ENVIRONMENT/admin"  # Replace ENVIRONMENT with staging/production
 
   github:
-    enabled: true
+    enabled: false
     secretPath: "jenkins/ENVIRONMENT/github/oauth"  # Replace ENVIRONMENT with staging/production
 
   sshEks:
