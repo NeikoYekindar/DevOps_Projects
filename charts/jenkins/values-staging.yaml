@@ -57,10 +57,10 @@ jenkins:
                         scope: GLOBAL
                         id: "ssh-eks-key"
                         description: "SSH key for EKS access"
-                        username: "${jenkins-ssh-eks-credential.username}"
+                        username: "${SSH_USERNAME}"
                         privateKeySource:
                           directEntry:
-                            privateKey: "${jenkins-ssh-eks-credential.privateKey}"
+                            privateKey: "${SSH_PRIVATE_KEY}"
                     - aws:
                         scope: GLOBAL
                         id: "aws-credentials"

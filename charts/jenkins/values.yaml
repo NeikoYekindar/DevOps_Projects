@@ -39,7 +39,6 @@ jenkins:
       registry: "docker.io"
       repository: "jenkins/jenkins"
       tag: "lts-jdk21"
-
     # Install AWS CLI in Jenkins container
     initContainerEnv:
       - name: INSTALL_AWS_CLI
@@ -71,11 +70,19 @@ jenkins:
           secretKeyRef:
             name: jenkins-aws-access-credential
             key: awsSecretKey
-    
-    controller:
-      javaOpts: >-
-        -Djenkins.install.runSetupWizard=false
+      - name: SSH_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: jenkins-ssh-eks-credential
+            key: username
+      - name: SSH_PRIVATE_KEY
+        valueFrom:
+          secretKeyRef:
+            name: jenkins-ssh-eks-credential
+            key: privateKey
 
+    javaOpts: >-
+      -Djenkins.install.runSetupWizard=false
 
     JCasC:
       configScripts:
@@ -93,10 +100,10 @@ jenkins:
                         scope: GLOBAL
                         id: "ssh-eks-key"
                         description: "SSH key for EKS access"
-                        username: "${jenkins-ssh-eks-credential.username}"
+                        username: "${SSH_USERNAME}"
                         privateKeySource:
                           directEntry:
-                            privateKey: "${jenkins-ssh-eks-credential.privateKey}"
+                            privateKey: "${SSH_PRIVATE_KEY}"
                     - aws:
                         scope: GLOBAL
                         id: "aws-credentials"
