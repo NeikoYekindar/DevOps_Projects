@@ -37,3 +37,4 @@ jenkins:
                 allowAnonymousRead: true
                 adminUserNames: "admin"
                 authenticatedUserReadPermission: true
+# Trigger ArgoCD sync
