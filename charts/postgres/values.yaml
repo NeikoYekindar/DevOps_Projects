@@ -1,5 +1,12 @@
 # charts/postgres/values.yaml
 # 1. Cấu hình xác thực (Authentication)
+
+postgresql:
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 15.8.0-debian-12-r0  # Hoặc chỉ đơn giản là "15" để lấy bản mới nhất của v15
+    pullPolicy: IfNotPresent
 auth:
   database: mlflow
   username: mlflow_user
@@ -8,7 +15,7 @@ auth:
 primary:
   persistence:
     enabled: true
-    storageClass: "gp2" 
+    storageClass: "gp3" 
     size: 20Gi
     mountPath: /bitnami/postgresql
     accessModes:
