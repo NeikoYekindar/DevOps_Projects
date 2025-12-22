@@ -29,7 +29,7 @@ spec:
         path: charts/jenkins
         helm:
           releaseName: jenkins-staging
-          valuesFiles:
+          valueFiles:
             - values.yaml
             - values-staging.yaml
       destination:

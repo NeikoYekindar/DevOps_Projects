@@ -14,7 +14,7 @@ spec:
     path: charts/jenkins
     helm:
       releaseName: jenkins-server
-      valuesFiles:
+      valueFiles:
         - values.yaml
         - values-prod.yaml
   syncPolicy:

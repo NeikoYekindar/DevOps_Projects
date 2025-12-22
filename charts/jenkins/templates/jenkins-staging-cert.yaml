@@ -1,8 +1,9 @@
+{{- if eq .Release.Namespace "jenkins-staging" }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: jenkins-staging-cert
-  namespace: jenkins
+  namespace: jenkins-staging
 spec:
   secretName: jenkins-staging-tls
   issuerRef:
@@ -10,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - jenkins-staging.neikoscloud.net
+{{- end }}
