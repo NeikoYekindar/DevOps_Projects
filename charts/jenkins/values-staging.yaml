@@ -98,9 +98,9 @@ jenkins:
                         privateKeySource:
                           directEntry:
                             privateKey: "${SSH_PRIVATE_KEY}"
-                    - aws:
+                    - usernamePassword:
                         scope: GLOBAL
                         id: "aws-credentials"
                         description: "AWS Access Credentials"
-                        accessKey: "${AWS_ACCESS_KEY}"
-                        secretKey: "${AWS_SECRET_KEY}"
+                        username: "${AWS_ACCESS_KEY}"
+                        password: "${AWS_SECRET_KEY}"
