@@ -5,7 +5,7 @@ postgresql:
   image:
     registry: docker.io
     repository: bitnami/postgresql
-    tag: 15.8.0-debian-12-r0  # Hoặc chỉ đơn giản là "15" để lấy bản mới nhất của v15
+    tag: latest
     pullPolicy: IfNotPresent
 auth:
   database: mlflow
