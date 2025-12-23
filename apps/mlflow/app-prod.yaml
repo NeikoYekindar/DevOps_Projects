@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mlflow-server
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
+    targetRevision: main
+    path: charts/mlflow
+    helm:
+      valueFiles:
+        - values-prod.yaml
+  destination:
+    name: in-cluster
+    namespace: mlflow-system
+  syncPolicy:
+    # automated:
+    #   prune: true
+    #   selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

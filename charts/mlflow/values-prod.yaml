@@ -1,0 +1,48 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/mlflow/mlflow
+  tag: "2.10.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5000
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: mlflow.neikoscloud.net
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: mlflow-tls
+      hosts:
+        - mlflow.neikoscloud.net
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 1
+    memory: 1Gi
+
+backendStore:
+  type: sqlite
+  path: /mlflow/mlflow.db
+
+artifactStore:
+  s3:
+    endpoint: http://minio.minio:9000
+    bucket: mlflow
+    accessKey: admin
+    secretKey: admin123
+    insecure: true
+
+persistence:
+  enabled: true
+  size: 8Gi
+  storageClass: gp2
