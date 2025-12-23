@@ -10,7 +10,7 @@ spec:
     targetRevision: main
     path: charts/argo-workflows
     helm:
-      releaseName: argo-workflows
+      releaseName: argo
       valueFiles:
         - values-prod.yaml
   destination:
