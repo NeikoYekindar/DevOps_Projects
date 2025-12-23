@@ -1,0 +1,58 @@
+# Image configuration
+image:
+  repository: ne1kos0/weather-tcn-api
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+# Number of replicas
+replicaCount: 1
+
+# Environment variables
+# Note: AWS credentials are loaded from jenkins-aws-access-credential secret in jenkins namespace
+env:
+  MLFLOW_TRACKING_URI: https://mlflow.neikoscloud.net
+  MLFLOW_S3_ENDPOINT_URL: https://minio.neikoscloud.net
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+
+# Ingress configuration
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+  hosts:
+    - api.neikoscloud.net
+  path: /
+  pathType: Prefix
+  tls:
+    - secretName: fastapi-tls
+      hosts:
+        - api.neikoscloud.net
+
+# Resource limits and requests
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# Health checks
+livenessProbe:
+  enabled: true
+  path: /health
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  enabled: true
+  path: /health
+  initialDelaySeconds: 10
+  periodSeconds: 5 
