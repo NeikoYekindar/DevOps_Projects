@@ -35,7 +35,7 @@ ingress:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
   hosts:
     - api.neikoscloud.net
-  path: /docs
+  path: /
   pathType: Prefix
   tls:
     - secretName: fastapi-tls
