@@ -1,7 +1,7 @@
 # Image configuration
 image:
   repository: ne1kos0/weather-tcn-api
-  tag: "latest"
+  tag: "v1"
   pullPolicy: IfNotPresent
 
 # Number of replicas
