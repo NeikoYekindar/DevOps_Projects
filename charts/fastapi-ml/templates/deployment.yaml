@@ -15,6 +15,10 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      {{- if .Values.imagePullSecrets.enabled }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets.name }}
+      {{- end }}
       containers:
         - name: fastapi-ml
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -24,16 +28,16 @@ spec:
               containerPort: {{ .Values.service.targetPort }}
               protocol: TCP
           env:
-            # AWS credentials from existing Jenkins secret
+            # AWS credentials from ExternalSecret
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
-                  name: jenkins-aws-access-credential
+                  name: {{ .Release.Name }}-aws-credentials
                   key: awsAccessKey
             - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: jenkins-aws-access-credential
+                  name: {{ .Release.Name }}-aws-credentials
                   key: awsSecretKey
             {{- if .Values.env }}
             # Other environment variables

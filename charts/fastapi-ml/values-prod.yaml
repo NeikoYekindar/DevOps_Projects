@@ -1,8 +1,15 @@
 # Image configuration
 image:
   repository: ne1kos0/weather-tcn-api
-  tag: "v1"
+  tag: "latest"
   pullPolicy: IfNotPresent
+
+# Image pull secrets for private Docker registry
+# Credentials are stored in AWS Secrets Manager and synced via ExternalSecret
+imagePullSecrets:
+  enabled: true
+  name: docker-registry-secret
+  registry: docker.io
 
 # Number of replicas
 replicaCount: 1
