@@ -31,8 +31,12 @@ resources:
     memory: 1Gi
 
 backendStore:
-  type: sqlite
-  path: /mlflow/mlflow.db
+  type: postgresql
+  host: postgres-mlflow-postgresql
+  port: 5432
+  database: mlflow
+  username: mlflow
+  password: mlflow123
 
 artifactStore:
   s3:

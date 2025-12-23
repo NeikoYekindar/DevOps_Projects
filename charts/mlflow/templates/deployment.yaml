@@ -37,7 +37,7 @@ spec:
             - mlflow
             - server
             - --backend-store-uri
-            - sqlite:////mlflow/mlflow.db
+            - postgresql://{{ .Values.backendStore.username }}:{{ .Values.backendStore.password }}@{{ .Values.backendStore.host }}:{{ .Values.backendStore.port }}/{{ .Values.backendStore.database }}
             - --default-artifact-root
             - s3://{{ .Values.artifactStore.s3.bucket }}
             - --host
