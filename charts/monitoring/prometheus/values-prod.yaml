@@ -1,3 +1,8 @@
+# Disable CRD creation - install manually to avoid annotation size issue
+kube-prometheus-stack:
+  crds:
+    enabled: false
+
 prometheus:
   configmapReload:
     prometheus:
