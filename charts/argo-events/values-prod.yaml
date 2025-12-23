@@ -14,10 +14,12 @@ ingress:
 
 # Values for the upstream argo-events Helm chart
 argo-events:
-  # Add any upstream chart configurations here
-  # For example:
-  # controller:
-  #   resources:
-  #     requests:
-  #       cpu: 100m
-  #       memory: 128Mi
+  # Controller configuration
+  controller:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
