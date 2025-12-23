@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-grafana-prod
+  namespace: argocd
+spec:
+  destination:
+    namespace: monitoring
+    name: in-cluster
+  project: default
+  source:
+    path: charts/monitoring/grafana
+    repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
+    targetRevision: main
+    helm:
+      releaseName: grafana-prod
+      valueFiles:
+        - values-prod.yaml
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
