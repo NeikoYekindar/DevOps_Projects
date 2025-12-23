@@ -54,12 +54,12 @@ resources:
 # Health checks
 livenessProbe:
   enabled: true
-  path: /health
+  path: /docs
   initialDelaySeconds: 30
   periodSeconds: 10
 
 readinessProbe:
   enabled: true
-  path: /health
+  path: /docs
   initialDelaySeconds: 10
   periodSeconds: 5 
