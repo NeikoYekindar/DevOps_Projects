@@ -89,11 +89,11 @@ pipeline {
                             sudo apt install net-tools
                             sudo apt install python3-pip -y
                             sudo apt install python-is-python3 -y
-                            git clone https://github.com/DarkinSideNet/test_jenkins.git -b tcn_phase
+                            git clone https://github.com/DarkinSideNet/DevOps_Projects.git
                             curl https://dl.min.io/client/mc/release/linux-amd64/mc --output mcli
                             sudo chmod +x mcli
                             sudo mv mcli /usr/local/bin/mcli
-                            cd test_jenkins
+                            cd DevOps_Projects
                             pip install -r requirements.txt
                             echo '--- DONE ---'
                         """
@@ -118,7 +118,7 @@ pipeline {
                         
                         def remoteCommand = """
                             echo '--- PHASE 1 TRAINING ---'
-                            cd test_jenkins
+                            cd DevOps_Projects
                             python3 setup_minio.py
                             python3 train_incremental_2.py
                             echo '--- DONE ---'
@@ -143,7 +143,7 @@ pipeline {
                         
                         def remoteCommand = """
                             echo '--- STARTING PHASE 2 EVALUATION ---'
-                            cd test_jenkins
+                            cd DevOps_Projects
                             python3 run_evaluation.py
                             python3 ./upload_minio.py
                             echo '--- DONE ---'
@@ -169,7 +169,7 @@ pipeline {
                             def remoteCommand = """
                                 echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
                                 git clone https://github.com/DarkinSideNet/FastApi_dev.git
-                                cp test_jenkins/best_model_final/weather_model_production.pth FastApi_dev/model.pth
+                                cp DevOps_Projects/best_model_final/weather_model_production.pth FastApi_dev/model.pth
                                 cd FastApi_dev/
                                 docker build -t ne1kos0/weather-tcn-api:${IMAGE_TAG} .
                                 docker push ne1kos0/weather-tcn-api:${IMAGE_TAG}
