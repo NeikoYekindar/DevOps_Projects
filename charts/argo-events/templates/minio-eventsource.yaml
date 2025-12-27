@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: minio-dataset-daily
+  namespace: {{ .Release.Namespace }}
+spec:
+  service:
+    ports:
+      - port: 12000
+        targetPort: 12000
+  minio:
+    dataset:
+      endpoint: minio-service.minio.svc.cluster.local:9000
+      bucket:
+        name: devopsproject
+      events:
+        - "s3:ObjectCreated:Put"
+        - "s3:ObjectCreated:Post"
+      filter:
+        prefix: dataset_daily/
+        suffix: .csv
+      insecure: true
+      accessKey:
+        name: {{ .Values.minio.secretName }}
+        key: {{ .Values.minio.accessKeyName }}
+      secretKey:
+        name: {{ .Values.minio.secretName }}
+        key: {{ .Values.minio.secretKeyName }}

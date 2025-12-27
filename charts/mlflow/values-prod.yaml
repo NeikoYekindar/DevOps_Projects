@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/mlflow/mlflow
-  tag: "2.10.0"
+  tag: "v2.17.2"
   pullPolicy: IfNotPresent
 
 service:
@@ -11,7 +11,7 @@ service:
 
 ingress:
   enabled: true
-  className: nginx
+  className: traefik
   hosts:
     - host: mlflow.neikoscloud.net
       paths:
@@ -31,12 +31,16 @@ resources:
     memory: 1Gi
 
 backendStore:
-  type: sqlite
-  path: /mlflow/mlflow.db
+  type: postgresql
+  host: postgres-mlflow-postgresql
+  port: 5432
+  database: postgres
+  username: postgres
+  password: "7cnLMl1CQT" 
 
 artifactStore:
   s3:
-    endpoint: http://minio.minio:9000
+    endpoint: https://minio.neikoscloud.net
     bucket: mlflow
     accessKey: admin
     secretKey: admin123

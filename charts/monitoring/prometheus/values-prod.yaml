@@ -1,0 +1,37 @@
+# Disable CRD creation - install manually to avoid annotation size issue
+kube-prometheus-stack:
+  crds:
+    enabled: false
+
+  # Grafana configuration
+  grafana:
+    adminPassword: prom-operator
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      hosts:
+        - grafana.neikoscloud.net
+      tls:
+        - secretName: grafana-tls
+          hosts:
+            - grafana.neikoscloud.net
+
+prometheus:
+  configmapReload:
+    prometheus:
+      containerPort: 8080
+  server:
+    # baseURL: "/prometheus"
+    # prefixURL: "/prometheus"
+    extraFlags:
+      - web.enable-lifecycle
+
+  extraScrapeConfigs: |
+    - job_name: 'jenkins-prod'
+      metrics_path: '/jenkins/prometheus'
+
+      static_configs:
+        - targets: ['jenkins-prod.jenkins-prod:8080']

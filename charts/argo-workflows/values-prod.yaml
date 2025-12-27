@@ -1,0 +1,62 @@
+# Production configuration for Argo Workflows
+
+# Configuration for MinIO credentials (used for artifact repository)
+minio:
+  secretName: minio-artifact-secret
+  accessKeyName: accesskey
+  secretKeyName: secretkey
+
+# Values for the upstream argo-workflows Helm chart
+argo-workflows:
+  # Workflow controller configuration
+  controller:
+    # Configure MinIO as default artifact repository
+    workflowDefaults:
+      spec:
+        artifactRepositoryRef:
+          configMap: artifact-repositories
+          key: default-s3-artifact-repository
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+
+  # Server configuration
+  server:
+    enabled: true
+    # Use server authentication (bypass token validation)
+    extraArgs:
+      - --auth-mode=server
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      hosts:
+        - argo-workflows.neikoscloud.net
+      paths:
+        - /
+      pathType: Prefix
+      tls:
+        - secretName: argo-workflows-tls
+          hosts:
+            - argo-workflows.neikoscloud.net
+
+  # Use ConfigMap for artifact repository configuration (better practice)
+  useDefaultArtifactRepo: true
+  artifactRepository:
+    archiveLogs: true
+    s3:
+      endpoint: minio-service.minio.svc.cluster.local:9000
+      bucket: devopsproject
+      insecure: true
+      accessKeySecret:
+        name: minio-artifact-secret
+        key: accesskey
+      secretKeySecret:
+        name: minio-artifact-secret
+        key: secretkey

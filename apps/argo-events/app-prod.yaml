@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-events
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
+    targetRevision: main
+    path: charts/argo-events
+    helm:
+      valueFiles:
+        - values-prod.yaml
+  destination:
+    name: in-cluster
+    namespace: argo-events
+  syncPolicy:
+    # automated:
+    #   prune: true
+    #   selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

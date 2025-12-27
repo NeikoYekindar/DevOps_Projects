@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/DarkinSideNet/DevOps_Projects.git
+    targetRevision: main
+    path: charts/monitoring/prometheus
+    helm:
+      valueFiles:
+        - values-prod.yaml
+  destination:
+    name: in-cluster
+    namespace: monitoring
+  syncPolicy:
+    # automated:
+    #   prune: true
+    #   selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - Replace=true
+      - SkipDryRunOnMissingResource=true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: privileged

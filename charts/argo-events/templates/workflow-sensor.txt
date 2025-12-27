@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: workflow-trigger-sensor
+  namespace: {{ .Release.Namespace }}
+spec:
+  dependencies:
+    - name: minio-dep
+      eventSourceName: minio-dataset-daily
+      eventName: dataset
+  triggers:
+    - template:
+        name: argo-workflow-trigger
+        argoWorkflow:
+          operation: submit
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: Workflow
+              metadata:
+                generateName: minio-data-processing-
+                namespace: argo
+              spec:
+                entrypoint: process-csv
+                arguments:
+                  parameters:
+                  - name: s3-key
+                    # Get file path from MinIO event
+                    value: "{{`{{inputs.parameters.s3-key}}`}}"
+                templates:
+                - name: process-csv
+                  inputs:
+                    parameters:
+                    - name: s3-key
+                  container:
+                    image: python:3.9-slim
+                    command: [python]
+                    args:
+                      - -c
+                      - |
+                        import os
+                        print("Processing CSV file from MinIO...")
+                        print(f"File: {{`{{inputs.parameters.s3-key}}`}}")
+                        print("Data processing completed!")
+          parameters:
+            - src:
+                dependencyName: minio-dep
+                dataKey: notification.0.s3.object.key
+              dest: spec.arguments.parameters.0.value

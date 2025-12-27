@@ -1,0 +1,25 @@
+# Production configuration for Argo Events
+
+# Configuration for MinIO credentials
+minio:
+  secretName: minio-credentials
+  accessKeyName: accessKey
+  secretKeyName: secretKey
+
+# Ingress configuration
+ingress:
+  enabled: true
+  host: minio-events.neikoscloud.net
+  tlsSecretName: minio-events-tls
+
+# Values for the upstream argo-events Helm chart
+argo-events:
+  # Controller configuration
+  controller:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi

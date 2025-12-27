@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: jenkins-trigger-sensor
+  namespace: argo-events
+spec:
+  dependencies:
+    - name: test-dep
+      eventSourceName: minio-dataset-daily
+      eventName: dataset
+  triggers:
+    - template:
+        name: jenkins-http-trigger
+        http:
+          # Cập nhật URL mới của bạn tại đây
+          url: https://jenkins.neikoscloud.net/buildByToken/build?job=test&token=123456
+          method: POST
+          headers:
+            Content-Type: application/x-www-form-urlencoded
+          # Nếu job của bạn không có tham số (Parameters), bạn có thể xóa phần payload này
+          headers:
+            # Thay thế <base64-string> bằng mã bạn tạo ở bước 2 bên dưới
+            Authorization: "Basic TmVpa29ZZWtpbmRhcjoxMWZiY2IyYmQzYjRkZmEwMjIyNTAxZjI4NTQxMWRhMzVl"

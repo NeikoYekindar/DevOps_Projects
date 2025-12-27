@@ -12,6 +12,17 @@ spec:
       labels:
         app: mlflow
     spec:
+      initContainers:
+        - name: install-dependencies
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command:
+            - sh
+            - -c
+            - |
+              pip install psycopg2-binary pymysql --target /dependencies
+          volumeMounts:
+            - name: dependencies
+              mountPath: /dependencies
       containers:
         - name: mlflow
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -19,6 +30,8 @@ spec:
           ports:
             - containerPort: 5000
           env:
+            - name: PYTHONPATH
+              value: /dependencies
             - name: MLFLOW_S3_ENDPOINT_URL
               value: {{ .Values.artifactStore.s3.endpoint | quote }}
             - name: AWS_ACCESS_KEY_ID
@@ -37,17 +50,22 @@ spec:
             - mlflow
             - server
             - --backend-store-uri
-            - sqlite:////mlflow/mlflow.db
+            - postgresql://{{ .Values.backendStore.username }}:{{ .Values.backendStore.password }}@{{ .Values.backendStore.host }}:{{ .Values.backendStore.port }}/{{ .Values.backendStore.database }}
             - --default-artifact-root
             - s3://{{ .Values.artifactStore.s3.bucket }}
             - --host
             - 0.0.0.0
             - --port
             - "5000"
+            - --serve-artifacts
           volumeMounts:
             - name: mlflow-data
               mountPath: /mlflow
+            - name: dependencies
+              mountPath: /dependencies
       volumes:
         - name: mlflow-data
           persistentVolumeClaim:
             claimName: mlflow-pvc
+        - name: dependencies
+          emptyDir: {}
