@@ -1,7 +1,7 @@
 # Image configuration
 image:
   repository: ne1kos0/weather-tcn-api
-  tag: "v95-e55a4cc"
+  tag: "v96-e55a4cc"
   pullPolicy: IfNotPresent
 
 # Image pull secrets for private Docker registry
